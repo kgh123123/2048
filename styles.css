@@ -1,0 +1,65 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background-color: #333;
+    display: flex;  /* 요소의 크기와 순서를 유연하게 배치*/
+    justify-content: center;    /* justify -content (가로축 - 중심축) */
+    align-items: center;    /* (세로축 - 교차축) */
+    height: 100vh;
+    margin: 0;
+    font-size: 7.5vmin;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size), var(--cell-size)); /* 열 cell 4번 */
+    grid-template-rows: repeat(var(--grid-size), var(--cell-size)); /* 행 cell 4번 */
+    background-color: #CCC;
+    gap: var(--cell-gap);
+    border-radius: 1vmin;
+    padding: var(--cell-gap);
+    position: relative; /* 요소 자기 자신을 기준으로 배치 */
+
+}
+
+.cell {
+    background-color: #aaa;
+    border-radius: 1vmin;
+}
+
+.tile {
+    position: absolute; /* 부모(조상) 요소를 기준으로 배치 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border-radius: 1vmin;
+
+    /*요소의 position 기준에 맞는 왼왼쪽에서의 거리(위치)를 설정 */
+    left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+    
+    /*요소의 position 기준에 맞는 위위쪽에서의 거리(위치)를 설정 */
+    top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap)); 
+    
+    font-weight: bold;
+    background-color: hsl(200, 50%, var(--background-lightness));   /* hsl(색조, 채도, 명도) */
+    color: hsl(200, 25%, var(--text-lightness));
+
+    /* 요소를 애니메이션화 */
+    animation: show 200ms ease-in-out;  /* 천천-보통-천천 */
+
+    /* CSS 속성이 일정한 기간동안 하나의 값에서 다른 값으로 변경될 때 발생 */
+    transition: 100ms ease-in-out;
+}
+
+/* 애니메이션에서 하나의 CSS 스타일에서 다른 CSS 스타일로 점진적으로 변경 */
+@keyframes show {
+    0% {
+        opacity: 0.5;
+        transform: scale(0);
+    }
+}
